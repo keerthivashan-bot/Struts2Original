@@ -8,6 +8,6 @@
 </head>
 <body>
 	<a href="viewStudentDetails">View Student Details</a><br>
-	<a href="addStudents">Add Student</a>
+	<a href="addStudentsPage">Add Student</a>
 </body>
 </html>

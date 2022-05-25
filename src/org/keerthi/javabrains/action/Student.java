@@ -1,8 +1,9 @@
 package org.keerthi.javabrains.action;
 
+import java.io.*;
 import org.json.JSONObject;
 
-public class Student {
+public class Student implements Serializable{
 	private String name;
 	private int id;
 	private String password;

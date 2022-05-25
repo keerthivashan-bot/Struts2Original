@@ -15,7 +15,7 @@
 			<result name="failure">/error.jsp</result>
 		</action>
 		
-		<action name="addStudents"  class="org.keerthi.javabrains.action.TutorialsAction">
+		<action name="addStudentsPage"  class="org.keerthi.javabrains.action.TutorialsAction">
 			<result name="success">/addStudents.jsp</result>
 			<result name="failure">/error.jsp</result>
 		</action>
@@ -33,6 +33,12 @@
 		<action name="buttonLoggedin"  class="org.keerthi.javabrains.action.TutorialsAction" >
 			 <result name="success">/loggedin.jsp</result>
 		</action>
-		 
+		
+		<action name="deleteParticularStudent"  class="org.keerthi.javabrains.action.StudentAction" method="deleteParticularStudent" >
+		</action>
+		
+		<action name="updateParticularStudent"  class="org.keerthi.javabrains.action.StudentAction" method="updateParticularStudent" >
+		</action>
+		
 	</package>
 </struts>
