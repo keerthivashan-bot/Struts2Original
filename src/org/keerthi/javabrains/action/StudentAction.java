@@ -188,7 +188,6 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 		    }
 		 	boolean eof=false;
 			Student s = new Student();
-			
 			while(!eof) {
 				try {
 					s = (Student)is.readObject();

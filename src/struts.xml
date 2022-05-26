@@ -40,5 +40,13 @@
 		<action name="updateParticularStudent"  class="org.keerthi.javabrains.action.StudentAction" method="updateParticularStudent" >
 		</action>
 		
+		<action name="viewParticularStudentInfo"  class="org.keerthi.javabrains.action.TutorialsAction">
+			<result name="success">/viewParticularStudent.jsp</result>
+		</action>
+		
+		<action name="updatingStudentDetails"  class="org.keerthi.javabrains.action.TutorialsAction">
+			<result name="success">/updateStudent.jsp</result>
+		</action>
+		
 	</package>
 </struts>

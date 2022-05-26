@@ -13,7 +13,37 @@
 "https://code.jquery.com/jquery-3.5.0.js">
 	</script>
 	<script>	
+	window.onload=function(){
+		 const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
+		 formForParticularStudent.style.display = 'none';
+	const btnForParticularStuDetail = document.getElementById('particularStudentShow');
+	const btnForAllStuDetail=document.getElementById('submitButton');
+
+	btnForParticularStuDetail.addEventListener('click', () => {
+		document.getElementById("mydiv").innerHTML = '';
+	 
+		console.log("btn arrives");
+		
+	  if (formForParticularStudent.style.display === 'none') {
+	    // 👇️ this SHOWS the form
+	    formForParticularStudent.style.display = 'block';
+	  } else {
+	    // 👇️ this HIDES the form
+	    formForParticularStudent.style.display = 'none';
+	  }
+	});
 	
+	btnForAllStuDetail.addEventListener('click', () => {
+		document.getElementById("formForViewingParticlarStudent").reset();
+		  const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
+			console.log("btn arrives");
+		  
+		    // 👇️ this HIDES the form
+		    formForParticularStudent.style.display = 'none';
+		  
+		});
+	
+	}
 	// When DOM is loaded this
 	// function will get executed
 	function deletingParticularStudent(rowid){
@@ -26,7 +56,7 @@
 					url: url,
 					data:{"rowId":rowid},
 					success: function(response) {
-						alert(response);
+						alert("Deleted Successfully");
 						console.log(response);
 					},
 					error: function(response) {
@@ -39,10 +69,10 @@
 	$(() => {
 		// function will get executed
 		// on click of submit button
-
 		$("#submitButton").click(function(ev) {
+			document.getElementById("divForparticularStudent").innerHTML ='';
 			console.log("arrived Here");
-			this.disabled = true;
+			//this.disabled = true;
 			var url = "http://localhost:8080/Struts2Starter/viewAllStudents";
 			
 			$.ajax({
@@ -56,7 +86,7 @@
 					          <thead>
 					            <tr>
 					              <th>Name</th>
-					              <th>Id</th>
+					              <th>Roll No</th>
 					              <th>Password</th>
 					              <th>Delete Student</th>
 					            </tr>
@@ -132,7 +162,6 @@
 	$(() => {
 		// function will get executed
 		// on click of submit button
-
 		$("#submitButtonForUpdate").click(function(ev) {
 			console.log("arrived Here++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 			var stuId = document.updatingForm.updatingStudentId.value;
@@ -180,41 +209,51 @@
 	</button>
 </form>
 	<h1>Student Details Page</h1>
-	
-<form action='' id = "formid">
-	<button type='submit'
-		id='submitButton'>
-		VIEW ALL STUDENTS
-	</button>
-</form>
+<table>	
+	<thead>
+		<tr>
+			<th>
+				<form action='' id = "formid">
+					<button type='submit'
+						id='submitButton'>
+						VIEW ALL STUDENTS
+					</button>
+				</form>
+			</th>
+			
+			<th>
+				
+				<button id="particularStudentShow">Particular Student Details</button>
+				
+			</th>
+			<!-- <th>
+				<form action='' name="updatingForm">
+					<table style="width: 35%">
+						<tr>
+							<td>Update student</td>
+							<td><input type="number" name="updatingStudentId"/></td>
+						</tr>
+					</table>
+					<button type='submit' id='submitButtonForUpdate'>
+						Submit
+					</button>
+				</form>
+			</th> -->
+		</tr>
+	</thead>
+</table>	
 <div id="mydiv"></div>	
-<form action='' name="form1">
-	<table style="width: 35%">
-		<tr>
-			<td>VIEW PARTICULAR STUDENT</td>
-			<td><input type="text" name="userName1"/></td>
-		</tr>
-	</table>
-	<button type='submit' id='submitButton1'>
-		Submit
-		</button>
-</form>	
-<h2>Particular Student Details</h2>
-<div id="divForparticularStudent"></div>
-
-
-<form action='' name="updatingForm">
-	<table style="width: 35%">
-		<tr>
-			<td><h2>UPDATE PARTICULAR STUDENT</h2></td>
-			<td><input type="number" name="updatingStudentId"/></td>
-		</tr>
-	</table>
-	<button type='submit' id='submitButtonForUpdate'>
-		Submit
-	</button>
-</form>	
 <div id="divForUpdatingStudent"></div>
-
+<form action='' name="form1" id="formForViewingParticlarStudent">
+					<table style="width: 35%">
+						<tr>
+							<td><h3>VIEW PARTICULAR STUDENT</h3></td>
+							<td><input type="number" name="userName1" required></td>
+							<td><button type='submit' id='submitButton1'>Submit</button></td>
+						</tr>
+					</table>
+					
+				</form>	
+	<div id="divForparticularStudent"></div>
 </body>
 </html>
