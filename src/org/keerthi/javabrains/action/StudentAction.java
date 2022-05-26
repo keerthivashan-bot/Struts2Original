@@ -1,6 +1,7 @@
 package org.keerthi.javabrains.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,9 +23,21 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	protected HttpServletResponse resp;
 	public JSONArray jsonArray1 = new JSONArray();
 	public int count=0;
-	File file = new File("C:\\\\Users\\\\Keerthi\\\\eclipse-workspace\\\\Struts2Starter\\\\src\\\\org\\\\keerthi\\\\javabrains\\\\action\\\\StudentsDetails.dat");
- 			
+	File file = new File("C:\\\\Users\\\\Keerthi\\\\eclipse-workspace\\\\Struts2Starter\\\\src\\\\org\\\\keerthi\\\\javabrains\\\\action\\\\StudentsDetails.dat");		
 	Student student = null;
+	
+	static HashMap<Integer,Object> studentHash = new HashMap<Integer,Object>();
+	static {
+		System.out.println("class Loaded ");
+		StudentManager sm  = StudentManager.getInstance();
+			try {
+				sm.adddingDataToHashMap(studentHash);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+	}
+	
+	
 	public Student getModel() {
 		student = new Student();
 		return student;
@@ -48,65 +61,11 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	
 	public void addStudent() throws IOException {
 		String stringArrayOfStudents=req.getParameter("arrayOfObjects");
-		JSONArray arrayOfStudents = new JSONArray(stringArrayOfStudents);
 		StudentManager sm  = StudentManager.getInstance();
+		
+		String message=sm.addStudentInManager(stringArrayOfStudents,file,studentHash);
 		PrintWriter out = resp.getWriter();	
-		String repeatedStudentsId="";
-		ObjectInputStream is=null;
-	    try {
-	    	is =new ObjectInputStream(new FileInputStream("C:\\Users\\Keerthi\\eclipse-workspace\\Struts2Starter\\src\\org\\keerthi\\javabrains\\action\\StudentsDetails.dat"));
-	    }
-	    catch(Exception e) {
-	    	e.printStackTrace();
-	    }
-	 	
-		ObjectOutputStream objOutput = file.exists() ? new AppendingObjectOutputStream(new FileOutputStream(file,true)):  new ObjectOutputStream(new FileOutputStream(file,true));
-			for(int i=0;i<arrayOfStudents.length();i++) {	
-		    	JSONObject innerObj =  arrayOfStudents.getJSONObject(i);
-		    	String name=(String)innerObj.get("name");
-		    	String id=(String)innerObj.get("id");
-		    	int id1=Integer.parseInt(id);
-		    	String password=(String)innerObj.get("password");
-		    	String tempRepeatedStudentsId=" ";
-		    	
-//		    	Checking If the student already exists
-		    	
-			 	boolean eof=false;
-				Student s = new Student();
-				while(!eof) {
-					try {
-						s = (Student)is.readObject();
-						if(s.getId()==id1) {
-							tempRepeatedStudentsId+=id1+" ";
-							repeatedStudentsId+=id1+" ";
-						}
-					}
-					catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					} 
-					catch(EOFException e) {
-						eof=true;
-						break;
-					}
-					catch (IOException e) {
-						e.printStackTrace();
-					}	
-				}
-				if(tempRepeatedStudentsId==" ") {
-		    		Student s1= new Student(name,id1,password);
-			    	sm.addStudent(s1);
-			    	objOutput.writeObject(s1);
-				}
-			}
-			is.close();
-			objOutput.close();
-			if(repeatedStudentsId=="") {
-	    		repeatedStudentsId+="Students added successfully";
-	    		out.print("Students added successfully");
-	    	}
-	    	else {
-	    		out.print(repeatedStudentsId+" are already present");
-	    	}
+		out.print(message);
 	}
 	
 	
@@ -116,7 +75,7 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 		resp.setStatus(200);
 		PrintWriter out = resp.getWriter();
 		
-		String jsonString=sm.getJsonArrayFromBinaryFile().toString();
+		String jsonString=sm.getJsonArrayFromBinaryFile(studentHash).toString();
 		out.print(jsonString);
 	}
 
@@ -124,7 +83,7 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 		StudentManager sm  = StudentManager.getInstance();
 		String name=req.getParameter("name");
 		int id=Integer.parseInt(name);
-		String studentDetail=sm.findingParticularStuDetail(id);
+		String studentDetail=sm.findingParticularStuDetail(id,studentHash);
 		PrintWriter out = resp.getWriter();
 		out.print(studentDetail);	
 	}	
@@ -149,6 +108,11 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 				if(s.getId()!=rowId) {
 					objOutput.writeObject(s);
 				}
+//				for deleting in HashMap
+				if(s.getId()==rowId) {
+					studentHash.remove(rowId);
+				}
+				
 				else {
 					continue;
 				}
@@ -206,8 +170,14 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 				catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 			}
 			is.close();		
+	}
+	
+	public void sortStudent() {
+		StudentManager sm  = StudentManager.getInstance();
+		int selectedDropDown=Integer.parseInt(req.getParameter("selectedDropDownValue"));
+		System.out.println("selectedDropDown is "+selectedDropDown);
+		sm.sortingStudent(studentHash,selectedDropDown);
 	}
 }

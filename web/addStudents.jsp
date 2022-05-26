@@ -22,12 +22,13 @@
 	<div id="box">
 				   <label>Name</label>
 				   <input type="text" id="userName" placeholder="Enter name" class="text1">
-				    <label>Id</label>
-				   <input type="number" id="id" placeholder="Enter id" class="text2">
+				    <label>Roll No</label>
+				   <input type="number" id="id" placeholder="Roll no" class="text2">
+				   <label>Marks</label>
+				   <input type="number" id="id" placeholder="Enter mark" class="text4">
 				   <label>Password</label>
 				   <input type="password" id="password" placeholder="Enter Password" class="text3">
-				   <button id='btn'>ADD ONE MORE STUDENT</button>
-				   
+				   <button id='btn'>ADD ONE MORE STUDENT</button>				   
 	</div>
 	<button id="submitButton">
 		SUBMIT
@@ -40,7 +41,7 @@
 			document.getElementById("box").appendChild(div);
 		}
 		function generatediv(){
-			return "<label>Name</label><input type='text' placeholder='Enter name' class='text1'>  <label>Id</label><input type='number' placeholder='Enter id'class='text2'> <label>Password</label><input type='password' placeholder='Enter Password' class='text3'> <button onclick='removediv(this)'>Remove</button>";
+			return "<label>Name</label><input type='text' placeholder='Enter name' class='text1'>  <label>Roll No</label><input type='number' placeholder='Enter id'class='text2'> <label>Marks</label><input type='number' placeholder='Enter mark'class='text4'><label>Password</label><input type='password' placeholder='Enter Password' class='text3'> <button onclick='removediv(this)'>Remove</button>";
 		}
 		function removediv(div){
 			document.getElementById("box").removeChild(div.parentNode);
@@ -52,12 +53,14 @@
 			var text1Count=document.querySelectorAll(".text1");
 			var text2Count=document.querySelectorAll(".text2");
 			var text3Count=document.querySelectorAll(".text3");
+			var text4Count=document.querySelectorAll(".text4");
 			
 			var str="";
 			for(var i=0;i<text1Count.length;i++){
 				array[i]={
 						"name"     :text1Count[i].value,
 						"id"       :text2Count[i].value,
+						"marks"    :text4Count[i].value,
 						"password" :text3Count[i].value
 				}
 			}

@@ -48,5 +48,8 @@
 			<result name="success">/updateStudent.jsp</result>
 		</action>
 		
+		<action name="sorting"  class="org.keerthi.javabrains.action.StudentAction" method="sortStudent" >
+		</action>
+		
 	</package>
 </struts>

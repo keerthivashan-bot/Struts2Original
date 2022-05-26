@@ -12,7 +12,10 @@
 								<script src=
 "https://code.jquery.com/jquery-3.5.0.js">
 	</script>
-	<script>	
+	<script>
+	
+	
+	
 	window.onload=function(){
 		 const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
 		 formForParticularStudent.style.display = 'none';
@@ -22,7 +25,6 @@
 	btnForParticularStuDetail.addEventListener('click', () => {
 		document.getElementById("mydiv").innerHTML = '';
 	 
-		console.log("btn arrives");
 		
 	  if (formForParticularStudent.style.display === 'none') {
 	    // 👇️ this SHOWS the form
@@ -36,9 +38,7 @@
 	btnForAllStuDetail.addEventListener('click', () => {
 		document.getElementById("formForViewingParticlarStudent").reset();
 		  const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
-			console.log("btn arrives");
-		  
-		    // 👇️ this HIDES the form
+			// 👇️ this HIDES the form
 		    formForParticularStudent.style.display = 'none';
 		  
 		});
@@ -47,9 +47,7 @@
 	// When DOM is loaded this
 	// function will get executed
 	function deletingParticularStudent(rowid){
-			console.log("function called "+rowid);
-			$(() => {
-				console.log("from Ajax Call"+rowid);
+		$(() => {
 				var url = "http://localhost:8080/Struts2Starter/deleteParticularStudent";
 				$.ajax({
 					type: "POST",
@@ -57,7 +55,6 @@
 					data:{"rowId":rowid},
 					success: function(response) {
 						alert("Deleted Successfully");
-						console.log(response);
 					},
 					error: function(response) {
 						alert("some Error");
@@ -71,7 +68,6 @@
 		// on click of submit button
 		$("#submitButton").click(function(ev) {
 			document.getElementById("divForparticularStudent").innerHTML ='';
-			console.log("arrived Here");
 			//this.disabled = true;
 			var url = "http://localhost:8080/Struts2Starter/viewAllStudents";
 			
@@ -86,7 +82,8 @@
 					          <thead>
 					            <tr>
 					              <th>Name</th>
-					              <th>Roll No</th>
+					              <th>RollNo</th>
+					              <th>Marks</th>
 					              <th>Password</th>
 					              <th>Delete Student</th>
 					            </tr>
@@ -96,15 +93,16 @@
 					for(var i=0;i<JSONObject.length;i++){
 						var obj=JSONObject[i];
 						var idForRow=obj.id;
-						console.log(typeof idForRow);
-						//console.log(idForRow);
 						html_text+="<tr id="+idForRow+">";
 							html_text+="<td>";
 				            html_text+=obj.name; 
 				            html_text+="</td>";
 				            html_text+="<td>";
 				            html_text+=obj.id; 
-				            html_text+="</td>"
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.marks; 
+				            html_text+="</td>";
 				            html_text+="<td>";
 				            html_text+=obj.password; 
 				            html_text+="</td>"
@@ -163,7 +161,7 @@
 		// function will get executed
 		// on click of submit button
 		$("#submitButtonForUpdate").click(function(ev) {
-			console.log("arrived Here++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+			
 			var stuId = document.updatingForm.updatingStudentId.value;
 			var url = "http://localhost:8080/Struts2Starter/updateParticularStudent";
 			
@@ -199,7 +197,46 @@
 		return "<label>Name : </label><input type='text' id='updatedName' class='text1'>  <label>password : </label><input type='text' id='updatePassword' class='text3'> <button onclick='checker(this)'>Update</button>";
 	}
 	
+	$(() => {
+		$("#submitBtnForDropDown").click(function() {
+			var e = document.getElementById("dropDownSelect");
+			var strUser = e.value;
+			url = "http://localhost:8080/Struts2Starter/viewParticularStudent";
+			$.ajax({
+				type: "GET",
+				url: url,
+				data:{"name":name},
+				success: function(response) {
+					alert(response);
+					document.getElementById("divForparticularStudent").innerHTML = response;
+				},
+				error: function(response) {
+					// Some error in ajax call
+					alert("some Error");
+				}	
+			});
+			event.preventDefault();
+		});
+	});
 	
+	function dropDown(){
+		console.log("From Dropdown");
+		var e = document.getElementById("dropDownSelect");
+		var selectedDropdown = e.value;
+		console.log(selectedDropdown);
+		var url = "http://localhost:8080/Struts2Starter/sorting";
+		$.ajax({
+			type: "GET",
+			url: url,
+			data:{"selectedDropDownValue":selectedDropdown},
+			success: function(response) {
+				//alert("Deleted Successfully");
+			},
+			error: function(response) {
+				alert("some Error");
+			}	
+		});
+	}
 	</script>
 </head>
 <body>
@@ -220,25 +257,23 @@
 					</button>
 				</form>
 			</th>
-			
 			<th>
-				
 				<button id="particularStudentShow">Particular Student Details</button>
-				
 			</th>
-			<!-- <th>
-				<form action='' name="updatingForm">
-					<table style="width: 35%">
-						<tr>
-							<td>Update student</td>
-							<td><input type="number" name="updatingStudentId"/></td>
-						</tr>
-					</table>
-					<button type='submit' id='submitButtonForUpdate'>
-						Submit
-					</button>
+			<th>
+				<form action="">
+				  
+				  <select id="dropDownSelect">
+					  <option value="" selected disabled hidden>Choose here</option>
+					  <option value="1">Name</option>
+					  <option value="2">Roll No</option>
+					  <option value="3">Marks</option>
+				  </select>
+				 <button id="submitBtnForDropDown" onclick="dropDown()">submit</button>
+				  <!-- <br><br>
+				  <input type="submit" value="Submit"> -->
 				</form>
-			</th> -->
+			</th>
 		</tr>
 	</thead>
 </table>	
@@ -253,7 +288,7 @@
 						</tr>
 					</table>
 					
-				</form>	
+</form>
 	<div id="divForparticularStudent"></div>
 </body>
 </html>
