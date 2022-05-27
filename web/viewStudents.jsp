@@ -13,9 +13,6 @@
 "https://code.jquery.com/jquery-3.5.0.js">
 	</script>
 	<script>
-	
-	
-	
 	window.onload=function(){
 		 const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
 		 formForParticularStudent.style.display = 'none';
@@ -36,11 +33,11 @@
 	});
 	
 	btnForAllStuDetail.addEventListener('click', () => {
+		document.getElementById("mydiv").innerHTML = '';
 		document.getElementById("formForViewingParticlarStudent").reset();
 		  const formForParticularStudent = document.getElementById('formForViewingParticlarStudent');
 			// 👇️ this HIDES the form
 		    formForParticularStudent.style.display = 'none';
-		  
 		});
 	
 	}
@@ -62,18 +59,23 @@
 				});
 		});
 		}
-		
+	
+	
 	$(() => {
 		// function will get executed
 		// on click of submit button
 		$("#submitButton").click(function(ev) {
 			document.getElementById("divForparticularStudent").innerHTML ='';
 			//this.disabled = true;
+			var e=1;
 			var url = "http://localhost:8080/Struts2Starter/viewAllStudents";
-			
+			//var e = document.getElementById("dropDownSelect");
+			//var selectedDropdown = e.value;
+			var selectedDropdown = e;
 			$.ajax({
 				type: "GET",
 				url: url,
+				data:{"selectedDropDownValue":selectedDropdown},
 				success: function(response) {
 					document.getElementById("mydiv").innerHTML ="";
 					var JSONObject = JSON.parse(response);
@@ -171,6 +173,7 @@
 				data:{"stuId":stuId},
 				dataType: 'json',
 				success: function(response) {
+					
 					var div=document.createElement("div");
 					var name=response.name;
 					var password =response.password;
@@ -189,7 +192,7 @@
 				}	
 			});
 			
-			event.preventDefault();
+			
 		}); //end of submitButton function
 		
 	});
@@ -198,45 +201,70 @@
 	}
 	
 	$(() => {
-		$("#submitBtnForDropDown").click(function() {
+		$("#submitBtnForDropdown").click(function(ev) {
+			//event.preventDefault();
 			var e = document.getElementById("dropDownSelect");
-			var strUser = e.value;
-			url = "http://localhost:8080/Struts2Starter/viewParticularStudent";
+			var selectedDropdown = e.value;
+			var url = "http://localhost:8080/Struts2Starter/sorting";
+			//document.getElementById(submitBtnForDropdown).disabled = true;
+			//this.disabled = true;
 			$.ajax({
 				type: "GET",
 				url: url,
-				data:{"name":name},
+				data:{"selectedDropDownValue":selectedDropdown},
 				success: function(response) {
-					alert(response);
-					document.getElementById("divForparticularStudent").innerHTML = response;
+					 $('#divForparticularStudent').html('');
+					document.getElementById("mydiv").innerHTML ="";
+					var JSONObject = JSON.parse(response);
+					 var html_text=`
+					        <table style="width:25%" id="table">
+					          <thead>
+					            <tr>
+					              <th>Name</th>
+					              <th>RollNo</th>
+					              <th>Marks</th>
+					              <th>Password</th>
+					              <th>Delete Student</th>
+					            </tr>
+					          </thead>
+					          <tbody>
+					        `; 
+					for(var i=0;i<JSONObject.length;i++){
+						var obj=JSONObject[i];
+						var idForRow=obj.id;
+						html_text+="<tr id="+idForRow+">";
+							html_text+="<td>";
+				            html_text+=obj.name; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.id; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.marks; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.password; 
+				            html_text+="</td>"
+				            html_text+="<td>";
+				             html_text+="<button id="+idForRow+" onclick='deleteRow(this)'>DELETE</button>"; 
+				            html_text+="</td>"
+			          html_text+="</tr>";
+					}
+					document.getElementById("mydiv").innerHTML = html_text;
+					
 				},
 				error: function(response) {
-					// Some error in ajax call
 					alert("some Error");
 				}	
 			});
+			
 			event.preventDefault();
-		});
+		}); //end of submitButton function
+		
 	});
 	
-	function dropDown(){
-		console.log("From Dropdown");
-		var e = document.getElementById("dropDownSelect");
-		var selectedDropdown = e.value;
-		console.log(selectedDropdown);
-		var url = "http://localhost:8080/Struts2Starter/sorting";
-		$.ajax({
-			type: "GET",
-			url: url,
-			data:{"selectedDropDownValue":selectedDropdown},
-			success: function(response) {
-				//alert("Deleted Successfully");
-			},
-			error: function(response) {
-				alert("some Error");
-			}	
-		});
-	}
+	
+	
 	</script>
 </head>
 <body>
@@ -269,7 +297,7 @@
 					  <option value="2">Roll No</option>
 					  <option value="3">Marks</option>
 				  </select>
-				 <button id="submitBtnForDropDown" onclick="dropDown()">submit</button>
+				 <button id = "submitBtnForDropdown">submit</button>
 				  <!-- <br><br>
 				  <input type="submit" value="Submit"> -->
 				</form>

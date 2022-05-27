@@ -71,10 +71,8 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	
 	public void getAllStudents() throws IOException {
 		StudentManager sm  = StudentManager.getInstance();
-		
 		resp.setStatus(200);
 		PrintWriter out = resp.getWriter();
-		
 		String jsonString=sm.getJsonArrayFromBinaryFile(studentHash).toString();
 		out.print(jsonString);
 	}
@@ -174,10 +172,16 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 			is.close();		
 	}
 	
-	public void sortStudent() {
+	public void sortStudent() throws IOException {
+		System.out.println("Aved");
 		StudentManager sm  = StudentManager.getInstance();
+		System.out.println("params"+req.getParameter("selectedDropDownValue"));
 		int selectedDropDown=Integer.parseInt(req.getParameter("selectedDropDownValue"));
 		System.out.println("selectedDropDown is "+selectedDropDown);
-		sm.sortingStudent(studentHash,selectedDropDown);
+		String jsonString=sm.sortingStudent(studentHash,selectedDropDown).toString();
+		PrintWriter out = resp.getWriter();
+//		resp.setStatus(200);
+		System.out.println(jsonString);
+		out.write(jsonString);
 	}
 }

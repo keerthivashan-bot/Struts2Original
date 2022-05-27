@@ -56,6 +56,8 @@ public class StudentManager {
 		        obj1.put("password", stu.getPassword());
 		        jsonArrayFromBinary.put(obj1);
 		    }    
+		    
+		    	    
 		 return jsonArrayFromBinary;
 	 }
 	 
@@ -182,20 +184,56 @@ public class StudentManager {
 			 	}
 	 }
 	 
-	 public void sortingStudent(HashMap<Integer,Object> studentHash,int no) {
-		 System.out.println("studentHash before"+studentHash);
+	 public JSONArray sortingStudent(HashMap<Integer,Object> studentHash,int no) {
+//		 System.out.println("studentHash before"+studentHash);
+		 jsonArray.clear();
+		 Set<Entry<Integer,Object>> entrySet=studentHash.entrySet();
+		 List<Entry<Integer,Object>> list= new ArrayList<>(entrySet);
 		 if(no==1) {
-			 Set<Entry<Integer,Object>> entrySet=studentHash.entrySet();
-			 List<Entry<Integer,Object>> list= new ArrayList<>(entrySet);
 			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
-				 Student o1=(Student)Object;
-			 @Override
-			 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
-				 return o1.getValue().getName().compareTo(o2.getValue().getName());
-			 }
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getName().compareTo(s2.getName());
+				 }
 			 });
-				 
-		}
-		 System.out.println("studentHash"+studentHash);
-	 }
+			 
+		 }
+		 
+		 else if(no==2) {
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getId()-s2.getId();
+				 }
+			 });
+			 
+		 }
+		 
+		 else {
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getMarks()-s2.getMarks();
+				 }
+			 });
+			 
+		 }
+		 for(Entry<Integer,Object> entry:list) {
+			 jsonArrayFromBinary.clear(); 
+			 JSONObject obj = new JSONObject();
+			 	Student s1=(Student) entry.getValue();
+				obj.put("name",s1.getName());
+				obj.put("id",entry.getKey());
+				obj.put("marks",s1.getMarks());
+				obj.put("password",s1.getPassword());
+		jsonArray.put(obj);
+		 } 
+		return jsonArray;
+	 }	
 }
