@@ -25,7 +25,7 @@ public class StudentManager {
 	 }
 	 public static StudentManager getInstance() {
 	      return SINGLE_INSTANCE;
-	    }
+	 }
 	 
 	 public void addStudent(Student s) {
 		 jsonArray.clear();
@@ -185,7 +185,6 @@ public class StudentManager {
 	 }
 	 
 	 public JSONArray sortingStudent(HashMap<Integer,Object> studentHash,int no) {
-//		 System.out.println("studentHash before"+studentHash);
 		 jsonArray.clear();
 		 Set<Entry<Integer,Object>> entrySet=studentHash.entrySet();
 		 List<Entry<Integer,Object>> list= new ArrayList<>(entrySet);

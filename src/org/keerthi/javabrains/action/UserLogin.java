@@ -26,6 +26,3 @@ public class UserLogin extends HttpServlet{
 		out.println("You are logged in");
 	}
 }
-
-
-

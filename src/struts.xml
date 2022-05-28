@@ -10,6 +10,12 @@
 			<result name="failure">/error.jsp</result>
 		</action>
 		
+		<action name=""  class="org.keerthi.javabrains.action.TutorialsAction">
+			<result name="success">/success.jsp</result>
+			<result name="failure">/error.jsp</result>
+		</action>
+		
+		
 		<action name="viewStudentDetails"  class="org.keerthi.javabrains.action.TutorialsAction">
 			<result name="success">/viewStudents.jsp</result>
 			<result name="failure">/error.jsp</result>

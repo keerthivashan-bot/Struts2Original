@@ -17,7 +17,7 @@ import org.keerthi.javabrains.action.*;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import java.io.*;
-public class StudentAction  extends ActionSupport implements ModelDriven<Student>, ServletRequestAware, ServletResponseAware{
+public class StudentAction  extends ActionSupport implements ServletRequestAware, ServletResponseAware{
 	private static final long serialVersionUID = 1L;
 	protected HttpServletRequest req;
 	protected HttpServletResponse resp;
@@ -28,7 +28,6 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	
 	static HashMap<Integer,Object> studentHash = new HashMap<Integer,Object>();
 	static {
-		System.out.println("class Loaded ");
 		StudentManager sm  = StudentManager.getInstance();
 			try {
 				sm.adddingDataToHashMap(studentHash);
@@ -62,7 +61,6 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	public void addStudent() throws IOException {
 		String stringArrayOfStudents=req.getParameter("arrayOfObjects");
 		StudentManager sm  = StudentManager.getInstance();
-		
 		String message=sm.addStudentInManager(stringArrayOfStudents,file,studentHash);
 		PrintWriter out = resp.getWriter();	
 		out.print(message);
@@ -139,8 +137,6 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 		JSONObject jsonObj=new JSONObject();    
 		int stuId=Integer.parseInt(req.getParameter("stuId"));	
 		PrintWriter out = resp.getWriter();
-//		out.print(studentDetail);
-		System.out.println(stuId);
 		 ObjectInputStream is=null;
 		    try {
 		    	is =new ObjectInputStream(new FileInputStream("C:\\Users\\Keerthi\\eclipse-workspace\\Struts2Starter\\src\\org\\keerthi\\javabrains\\action\\StudentsDetails.dat"));
@@ -173,15 +169,10 @@ public class StudentAction  extends ActionSupport implements ModelDriven<Student
 	}
 	
 	public void sortStudent() throws IOException {
-		System.out.println("Aved");
 		StudentManager sm  = StudentManager.getInstance();
-		System.out.println("params"+req.getParameter("selectedDropDownValue"));
 		int selectedDropDown=Integer.parseInt(req.getParameter("selectedDropDownValue"));
-		System.out.println("selectedDropDown is "+selectedDropDown);
 		String jsonString=sm.sortingStudent(studentHash,selectedDropDown).toString();
 		PrintWriter out = resp.getWriter();
-//		resp.setStatus(200);
-		System.out.println(jsonString);
 		out.write(jsonString);
 	}
 }
