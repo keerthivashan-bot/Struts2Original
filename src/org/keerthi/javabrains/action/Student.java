@@ -6,15 +6,64 @@ import org.json.JSONObject;
 public class Student implements Serializable{
 	private String name;
 	private int id;
-	private int marks;
+	private int tamil;
+	private int english;
+	private int maths;
+	private int science;
+	private int social;
 	private String password;
+	public int getTamil() {
+		return tamil;
+	}
+
+	public void setTamil(int tamil) {
+		this.tamil = tamil;
+	}
+
+	public int getEnglish() {
+		return english;
+	}
+
+	public void setEnglish(int english) {
+		this.english = english;
+	}
+
+	public int getMaths() {
+		return maths;
+	}
+
+	public void setMaths(int maths) {
+		this.maths = maths;
+	}
+
+	public int getScience() {
+		return science;
+	}
+
+	public void setScience(int science) {
+		this.science = science;
+	}
+
+	public int getSocial() {
+		return social;
+	}
+
+	public void setSocial(int social) {
+		this.social = social;
+	}
+
+	
 	
 	Student () {}
 	
-	Student(String name,int id,int marks,String password){
+	Student(String name,int id,int tamil,int english,int maths,int science,int social,String password){
 		this.name=name;
 		this.id=id;
-		this.marks=marks;
+		this.tamil=tamil;
+		this.english=english;
+		this.maths=maths;
+		this.science=science;
+		this.social=social;
 		this.password=password;
 	}
 	public String getName() {
@@ -29,13 +78,7 @@ public class Student implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getMarks() {
-		return marks;
-	}
-
-	public void setMarks(int marks) {
-		this.marks = marks;
-	}
+	
 
 	public String getPassword() {
 		return password;
@@ -45,14 +88,18 @@ public class Student implements Serializable{
 	}
 	
 	public String toString() {
-		return(" Student Name "+this.name+" and student id is "+this.id+" and "+this.name+" amrk is "+this.getMarks()+" "+this.name+" password is "+this.password+"\n");
+		return(" Student Name "+this.name+" and student id is "+this.id+" and "+this.name+" Tamil mark is "+this.getTamil()+" and English mark is "+this.getEnglish()+" and Maths mark is "+this.getMaths()+" "+" and Science mark is "+this.getScience()+" and Social mark is "+this.getSocial()+" "+" "+this.name+" password is "+this.password+"\n");
 	}
 	
 	public JSONObject getObject(){
 		JSONObject obj = new JSONObject();
 		obj.put("name",this.name);
 		obj.put("id",this.id);
-		obj.put("marks",this.marks);
+		obj.put("tamil",this.tamil);
+		obj.put("english",this.english);
+		obj.put("maths",this.maths);
+		obj.put("science",this.science);
+		obj.put("social",this.social);
 		obj.put("password",this.password);
 		return obj;
 	}

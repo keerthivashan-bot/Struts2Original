@@ -13,7 +13,7 @@ import java.util.*;
 public class UserLogin extends HttpServlet{
 	public void service(HttpServletRequest req,HttpServletResponse res) throws IOException{
 		res.setContentType("text/html");
-		Student s=new Student("Keerthi",1,100,"1");
+		Student s=new Student("Keerthi",1,100,10,10,10,90,"1");
 		String userName=req.getParameter("userName");
 		String password=req.getParameter("password");
 		if(userName.equals(s.getName()) && password.equals(s.getPassword())) {

@@ -11,7 +11,7 @@
 		</action>
 		
 		<action name=""  class="org.keerthi.javabrains.action.TutorialsAction">
-			<result name="success">/success.jsp</result>
+			<result name="success">/addingCustomer.jsp</result>
 			<result name="failure">/error.jsp</result>
 		</action>
 		
@@ -57,5 +57,48 @@
 		<action name="sorting"  class="org.keerthi.javabrains.action.StudentAction" method="sortStudent" >
 		</action>
 		
+		<action name="addingCustomers"  class="org.keerthi.javabrains.action.CustomerAction" method="addingCustomer" >
+			<result name="success">/afterLogin.jsp</result>
+		</action>
+		
+		<action name="loginchecker"  class="org.keerthi.javabrains.action.CustomerAction" method="loginchecker" >
+			<result name="success">/afterLogin.jsp</result>
+		</action>
+		
+		<action name="login"  class="org.keerthi.javabrains.action.TutorialsAction">
+			<result name="success">/login.jsp</result>
+			<result name="failure">/error.jsp</result>
+		</action>
+		
+		<action name="atmWithdrawl"  class="org.keerthi.javabrains.action.TutorialsAction">
+			  <result name="success">/successlogin.jsp</result>
+		</action>
+		
+		
+		<action name="withdrawl"  class="org.keerthi.javabrains.action.CustomerAction" method="atmWithdrawal" >
+		</action>
+		
+		<action name="cashDeposit"  class="org.keerthi.javabrains.action.TutorialsAction">
+			  <result name="success">/cashDeposit.jsp</result>
+		</action>
+		
+		<action name="deposit"  class="org.keerthi.javabrains.action.CustomerAction" method="cashDeposit" >
+		</action>
+		
+		<action name="logout"  class="org.keerthi.javabrains.action.CustomerAction" method="customerLogout">
+			  <result name="success">/login.jsp</result>
+		</action>
+		
+		<action name="accountTransfering"  class="org.keerthi.javabrains.action.TutorialsAction">
+			  <result name="success">/accountTransfer.jsp</result>
+		</action>
+		
+		<action name="accountTransfer"  class="org.keerthi.javabrains.action.CustomerAction" method="accountTransfer">
+		</action>
+		
+		<action name="customersSorting"  class="org.keerthi.javabrains.action.CustomerAction" method="sort">
+			<result name="success">/login.jsp</result>
+			<result name="failure">/error.jsp</result>
+		</action>
 	</package>
 </struts>

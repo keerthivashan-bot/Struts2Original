@@ -10,8 +10,8 @@ public class StudentsCreator {
 	private String students;
 	public String execute() {
 		ArrayList<Student> studentsList=new ArrayList<Student>();
-		studentsList.add(new Student("Dharsan",1,90,"1@13"));
-		studentsList.add(new Student("Mani",2,80,"1#133"));
+		studentsList.add(new Student("Dharsan",1,90,10,10,10,90,"1@13"));
+		studentsList.add(new Student("Mani",2,80,10,10,10,90,"1#133"));
 		for(Student i: studentsList) {
 			students+=i.toString();
 			students+="\n";

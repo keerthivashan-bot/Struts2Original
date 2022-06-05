@@ -85,7 +85,11 @@
 					            <tr>
 					              <th>Name</th>
 					              <th>RollNo</th>
-					              <th>Marks</th>
+					              <th>Tamil</th>
+					              <th>English</th>
+					              <th>Maths</th>
+					              <th>Science</th>
+					              <th>Social</th>
 					              <th>Password</th>
 					              <th>Delete Student</th>
 					            </tr>
@@ -103,7 +107,19 @@
 				            html_text+=obj.id; 
 				            html_text+="</td>";
 				            html_text+="<td>";
-				            html_text+=obj.marks; 
+				            html_text+=obj.tamil; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.english; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.maths; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.science; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.social; 
 				            html_text+="</td>";
 				            html_text+="<td>";
 				            html_text+=obj.password; 
@@ -222,7 +238,11 @@
 					            <tr>
 					              <th>Name</th>
 					              <th>RollNo</th>
-					              <th>Marks</th>
+					              <th>Tamil</th>
+					              <th>English</th>
+					              <th>Maths</th>
+					              <th>Science</th>
+					              <th>Social</th>
 					              <th>Password</th>
 					              <th>Delete Student</th>
 					            </tr>
@@ -240,7 +260,19 @@
 				            html_text+=obj.id; 
 				            html_text+="</td>";
 				            html_text+="<td>";
-				            html_text+=obj.marks; 
+				            html_text+=obj.tamil; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.english; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.maths; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.science; 
+				            html_text+="</td>";
+				            html_text+="<td>";
+				            html_text+=obj.social; 
 				            html_text+="</td>";
 				            html_text+="<td>";
 				            html_text+=obj.password; 
@@ -254,7 +286,7 @@
 					
 				},
 				error: function(response) {
-					alert("some Error");
+					alert("Please choose a proper value from dropdown");
 				}	
 			});
 			
@@ -295,7 +327,12 @@
 					  <option value="" selected disabled hidden>Choose here</option>
 					  <option value="1">Name</option>
 					  <option value="2">Roll No</option>
-					  <option value="3">Marks</option>
+					  <option value="3">Tamil</option>
+					  <option value="4">English</option>
+					  <option value="5">Maths</option>
+					  <option value="6">Science</option>
+					  <option value="7">Social</option>
+					  
 				  </select>
 				 <button id = "submitBtnForDropdown">submit</button>
 				  <!-- <br><br>

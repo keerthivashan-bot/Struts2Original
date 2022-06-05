@@ -52,7 +52,11 @@ public class StudentManager {
 		        Student stu=(Student) entry.getValue();  
 		        obj1.put("name", stu.getName());
 		        obj1.put("id", key);
-		        obj1.put("marks",stu.getMarks());
+		        obj1.put("tamil",stu.getTamil());
+		        obj1.put("english",stu.getEnglish());
+		        obj1.put("maths",stu.getMaths());
+		        obj1.put("science",stu.getScience());
+		        obj1.put("social",stu.getSocial());
 		        obj1.put("password", stu.getPassword());
 		        jsonArrayFromBinary.put(obj1);
 		    }    
@@ -129,8 +133,16 @@ public class StudentManager {
 			    	String name=(String)innerObj.get("name");
 			    	String id=(String)innerObj.get("id");
 			    	int id1=Integer.parseInt(id);
-			    	String mar=(String)innerObj.get("marks");
-			    	int marks=Integer.parseInt(mar);
+			    	String mar=(String)innerObj.get("tamil");
+			    	int tamil=Integer.parseInt(mar);
+			    	String eng=(String)innerObj.get("english");
+			    	int english=Integer.parseInt(eng);
+			    	String mat=(String)innerObj.get("maths");
+			    	int maths=Integer.parseInt(mat);
+			    	String sci=(String)innerObj.get("science");
+			    	int science=Integer.parseInt(sci);
+			    	String soc=(String)innerObj.get("social");
+			    	int social=Integer.parseInt(soc);
 			    	String password=(String)innerObj.get("password");
 			    	String tempRepeatedStudentsId=" ";
 			    	boolean ifExist=false;
@@ -165,7 +177,7 @@ public class StudentManager {
 							}	
 						}
 						if(tempRepeatedStudentsId==" ") {
-				    		Student s1= new Student(name,id1,marks,password);
+				    		Student s1= new Student(name,id1,tamil,english,maths,science,social,password);
 					    	sm.addStudent(s1);
 					    	int idForHash=s1.getId();
 					    	studentHash.put(idForHash,s1);
@@ -180,7 +192,7 @@ public class StudentManager {
 			 		return("Students added successfully");
 			 	}
 			 	else {
-			 		return(repStudIdInHash+" are already present");
+			 		return("Roll no "+repStudIdInHash+" are already present");
 			 	}
 	 }
 	 
@@ -212,16 +224,60 @@ public class StudentManager {
 			 
 		 }
 		 
-		 else {
+		 else if(no==3){
 			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
 				 @Override
 				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
 					 Student s1=(Student)o1.getValue();
 					 Student s2=(Student)o2.getValue();
-					 return s1.getMarks()-s2.getMarks();
+					 return s1.getTamil()-s2.getTamil();
 				 }
 			 });
 			 
+		 }
+		 else if(no==4){
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getEnglish()-s2.getEnglish();
+				 }
+			 });
+			 
+		 }
+		
+		 else if(no==5){
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getMaths()-s2.getMaths();
+				 }
+			 });
+			 
+		 }
+		 else if(no==6){
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getScience()-s2.getScience();
+				 }
+			 });
+		 }
+		 
+		 else if(no==7){
+			 Collections.sort(list,new Comparator<Entry<Integer,Object>>(){
+				 @Override
+				 public int compare(Entry<Integer,Object>o1,Entry<Integer,Object>o2) {
+					 Student s1=(Student)o1.getValue();
+					 Student s2=(Student)o2.getValue();
+					 return s1.getSocial()-s2.getSocial();
+				 }
+			 });
 		 }
 		 for(Entry<Integer,Object> entry:list) {
 			 jsonArrayFromBinary.clear(); 
@@ -229,7 +285,11 @@ public class StudentManager {
 			 	Student s1=(Student) entry.getValue();
 				obj.put("name",s1.getName());
 				obj.put("id",entry.getKey());
-				obj.put("marks",s1.getMarks());
+				obj.put("tamil",s1.getTamil());
+		        obj.put("english",s1.getEnglish());
+		        obj.put("maths",s1.getMaths());
+		        obj.put("science",s1.getScience());
+		        obj.put("social",s1.getSocial());
 				obj.put("password",s1.getPassword());
 		jsonArray.put(obj);
 		 } 
